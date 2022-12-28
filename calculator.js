@@ -26,14 +26,23 @@ function appendDigit(digit) {
 }
 
 function removeDigit() {
-    console.log("A digit was removed")
+    let number;
     if (!firstComputed) {
-        num1 = Math.floor(num1 / 10);
+        number = num1;
     } else {
-        num2 = Math.floor(num2 / 10);
+        number = num2;
     }
 
-    updateResScreen()
+    number = Math.trunc(number / 10);
+
+    if (!firstComputed) {
+        num1 = number;
+    } else {
+        num2 = number;
+    }
+
+    console.log("A digit was removed");
+    updateResScreen();
 }
 
 function clearNum() {
@@ -43,6 +52,7 @@ function clearNum() {
         num2 = 0;
     }
 
+    console.log("A number was cleared");
     updateResScreen()
 }
 
@@ -54,6 +64,8 @@ function setOperator(operation) {
 
     firstComputed = true;
     operator = operation;
+
+    console.log(`Operator is set to ${operator}`);
     updateResScreen()
 }
 
@@ -61,12 +73,14 @@ function computeOperation() {
     // If we do not have values for both num1 and num2
     if (!firstComputed || !secondComputed || typeof(operator) == undefined) {
         operator = undefined;
+        console.log("Undefined computation");
     } else {
         num1 = operator(num1, num2);
         num2 = 0;
         firstComputed = false;
         secondComputed = false;
         operator = undefined;
+        console.log(`computeOperation result is ${num1}`);
     }
     updateResScreen()
 }
